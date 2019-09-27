@@ -1,0 +1,29 @@
+<div class="row">
+  <div class="col-md-8">
+      <div class="container p-3">
+        <div >Meal Filter</div>
+        <div class="row">
+          <div class="col-md-4"><button class=" btn btn-outline-info" (click)='getAllMeals()'>View All Meals</button></div>
+          <div class="col-md-4"><button class="btn btn-outline-info" (click)='withHighCalories()'>With High Calories</button></div>
+          <div class="col-md-4"><button class="btn btn-outline-info" (click)='withLowCalories()'>With Low Calories</button></div>
+        </div>
+
+        </div>
+        <div>
+          <h3 class="text-danger text-center notmeals" *ngIf='meals.length == 0 '><span class="text-info">No meals yet. </span><br>Your meals details will appear here. </h3>
+        </div>
+        <div class='card' *ngFor='let meal of meals; let i=index'>
+          <div class="mname" id='{{i}}'><strong>{{ meal.name }}</strong>
+            <span class="badge badge-pill badge-danger float-right" (click)='deleteMeal(i)'>delete</span>
+            <span class="badge badge-pill badge-info float-right" (click)='updateOldMeal(i)'>edit</span>
+          </div>
+          <hr>
+          <div class="text-warning">Carolies level: <strong>{{meal.carolieLevel}}</strong></div>
+          <div class="text-info"><strong>{{meal.mDate | date}}</strong></div>
+
+        </div>
+  </div>
+  <div class="col-md-4">
+      <app-create-meal (addMeal)='addNewMeal($event)' (editMeal)='updateOldMeal($event)'></app-create-meal>
+  </div>
+</div>

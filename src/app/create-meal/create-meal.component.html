@@ -1,0 +1,32 @@
+<form #mealForm='ngForm' class='mb-5 p-3'>
+  <h3 *ngIf="!editState">Create a meal</h3>
+  <h3 *ngIf="editState">Update your meal</h3>
+
+  <div class="form-group">
+    <label for="name">Meal Name</label>
+    <input type="text" class="form-control" id="name" [(ngModel)]="newMeal.name" name="name" #name='ngModel' required value='{{newMeal.name}}'>
+    <p [hidden]="name.valid || name.pristine" class="alert alert-danger">Provide name of the meal.</p>
+  </div>
+
+  <div class="form-group">
+    <label for="carolie">Calories Level</label>
+    <input type="number" class="form-control" id="carolie" [(ngModel)]="newMeal.carolieLevel" name="carolie"
+      #carolie='ngModel' required value='{{newMeal.carolieLevel}}'>
+    <p [hidden]="carolie.valid || carolie.pristine" class="alert alert-danger">Provide calorie level</p>
+  </div>
+
+  <div class="form-group">
+
+    <label for="date">Date</label>
+    <input type='date' id="date" [(ngModel)]="newMeal.mDate" name="mDate" #mDate="ngModel" required class='form-control'  value='{{newMeal.mDate}}'>
+    <p [hidden]="mDate.valid || mDate.pristine" class="alert alert-danger" >Date is required</p>
+
+  </div>
+  <button *ngIf="!editState" type="submit" class="btn btn-success float-right" [disabled]="!mealForm.form.valid" (click)='submitMeal()'>Add Meal</button>
+  <button *ngIf="editState" type="submit" class="btn btn-info float-right" [disabled]="!mealForm.form.valid"
+   (click)='updateMeal(
+     name.value,
+     carolie.value,
+     mDate.value
+   )'>Update Meal</button>
+</form>

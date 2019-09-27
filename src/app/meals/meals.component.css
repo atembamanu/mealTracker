@@ -1,0 +1,16 @@
+.card
+{
+  margin: 20px;
+  padding: 20px;
+}
+.notmeals{
+  padding: 30px;
+}
+.mname
+{
+  cursor: pointer;
+}
+.badge
+{
+  margin: 3px;
+}
