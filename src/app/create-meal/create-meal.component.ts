@@ -1,24 +1,42 @@
 import { MealService } from './../meal-service.service';
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input, OnDestroy } from '@angular/core';
 import { Meal } from '../meal';
+import { CommonService } from '../common.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-create-meal',
   templateUrl: './create-meal.component.html',
   styleUrls: ['./create-meal.component.css']
 })
-export class CreateMealComponent implements OnInit {
+export class CreateMealComponent implements OnInit, OnDestroy {
 
   newMeal = new Meal(0, '', 0, new Date());
-
+  private subscription: Subscription;
 
   @Output() addMeal = new EventEmitter<Meal>();
   @Output() editMeal = new EventEmitter<Meal>();
-  @Input() editState: boolean;
+  editState = false;
 
   // @Output() updateClickedMeal = new EventEmitter<Meal>();
 
   ngOnInit() {
+    this.subscription = this.commonService.notifyObservable$.subscribe((res) => {
+      if (res.hasOwnProperty('option') && res.option === 'call_child') {
+        console.log(res.value);
+        this.newMeal = this.mealservice.editMeal(res.value);
+        this.editState = true;
+
+      }
+    });
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
+
+  constructor(private commonService: CommonService, private mealservice: MealService ) {
+    // this.newMeal  = mealService.editMeal(this.newMeal.id);
   }
 
   submitMeal() {
@@ -27,15 +45,11 @@ export class CreateMealComponent implements OnInit {
 
   }
 
-  updateMeal(id, name, carolieLevel, mDate) {
-    const thePost: Meal = {
-      id,
-      name,
-      carolieLevel,
-      mDate
-    };
-    this.editState = false;
-    this.editMeal.emit(thePost);
+  updateMeal() {
+    this.editState = true;
+    this.editMeal.emit(this.newMeal);
+
+
   }
 
 }

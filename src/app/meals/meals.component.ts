@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { Meal } from '../meal';
 import { ToastrService } from '../toastr.service';
+import { CommonService } from '../common.service';
 
 @Component({
   selector: 'app-meals',
@@ -14,17 +15,32 @@ export class MealsComponent implements OnInit {
 
   meals: Meal[];
 
-  constructor(private mealService: MealService, private toastService: ToastrService) {
+  constructor(private mealService: MealService,
+              private toastService: ToastrService,
+              private commonService: CommonService) {
 
    }
    addNewMeal(meal) {
+    if (meal.id) {
+      // console.log("update")
+      this.toastService.success('Meal updated succesfully');
+      this.mealService.updateMeal(meal);
+    } else {
+      // console.log("push")
      this.toastService.success('Meal added succesfully');
      this.mealService.addNewMeal(meal);
-   }
 
-   updateOldMeal(meal) {
-     this.toastService.info('Meal Updated Sucessfully');
-     this.mealService.editMeal(meal);
+   }
+  }
+
+  //  updateOldMeal(meal) {
+  //    this.toastService.info('Meal Updated Sucessfully');
+  //    this.mealService.editMeal(meal);
+  //  }
+
+   editMeal(id) {
+     this.commonService.notifyOther({option: 'call_child', value: id});
+     this.mealService.editMeal(id);
    }
 
    getAllMeals() {
@@ -36,8 +52,6 @@ export class MealsComponent implements OnInit {
      }
 
   }
-
-
   withHighCalories() {
     if (this.meals.length !== 0) {
       this.toastService.info('Filter Set to meals with High Calories');

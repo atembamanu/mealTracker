@@ -24,9 +24,5 @@
   </div>
   <button *ngIf="!editState" type="submit" class="btn btn-success float-right" [disabled]="!mealForm.form.valid" (click)='submitMeal()'>Add Meal</button>
   <button *ngIf="editState" type="submit" class="btn btn-info float-right" [disabled]="!mealForm.form.valid"
-   (click)='updateMeal(
-     name.value,
-     carolie.value,
-     mDate.value
-   )'>Update Meal</button>
+   (click)='submitMeal()'>Update Meal</button>
 </form>

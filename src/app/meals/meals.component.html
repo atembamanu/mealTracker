@@ -15,7 +15,7 @@
         <div class='card' *ngFor='let meal of meals; let i=index'>
           <div class="mname" id='{{i}}'><strong>{{ meal.name }}</strong>
             <span class="badge badge-pill badge-danger float-right" (click)='deleteMeal(i)'>delete</span>
-            <span class="badge badge-pill badge-info float-right" (click)='updateOldMeal(i)'>edit</span>
+            <span class="badge badge-pill badge-info float-right" (click)='editMeal(meal.id)'>edit</span>
           </div>
           <hr>
           <div class="text-warning">Carolies level: <strong>{{meal.carolieLevel}}</strong></div>

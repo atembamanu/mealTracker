@@ -13,11 +13,25 @@ export class MealService {
     return this.meals;
   }
 
-  addNewMeal(meal) {
-    const mealLength = this.meals.length;
-    meal.id = mealLength + 1;
-    meal.mDate = new Date(meal.mDate);
-    this.meals.push(meal);
+  addNewMeal(newmeal) {
+    const mealLength = this.meals.length + 1;
+    newmeal.id = mealLength + 1;
+    newmeal.mDate = new Date(newmeal.mDate);
+    this.meals.push(newmeal);
+  }
+
+  updateMeal(newmeal) {
+    console.log('newmeal');
+    console.log(newmeal);
+    for (const meal of this.meals) {
+     if ( meal.id === newmeal.id) {
+        meal.id = newmeal.id;
+        meal.name = newmeal.name;
+        meal.carolieLevel = newmeal.carolieLevel;
+        meal.mDate = newmeal.mDate;
+     }
+
+   }
   }
 
   withLowCalories() {
@@ -30,12 +44,12 @@ export class MealService {
     return this.highCalories;
   }
 
-  deleteMeal(index){
+  deleteMeal(index) {
     return this.meals.splice(index, 1);
   }
 
   editMeal(id) {
-    for (let meal of this.meals) {
+    for (const meal of this.meals) {
       if ( meal.id === id) {
         return meal;
       }
@@ -49,7 +63,7 @@ export class MealService {
       new Meal(2, 'Chips', 500, new Date(2018, 11, 2)),
       new Meal(4, 'Fries', 900, new Date(2018, 11, 2)),
       new Meal(5, 'Rice Meat', 100, new Date(2018, 12, 2)),
-      new Meal(5, 'Rice beans', 80, new Date(2018, 12, 2))
+      new Meal(6, 'Rice beans', 80, new Date(2018, 12, 2))
     ];
   }
 }

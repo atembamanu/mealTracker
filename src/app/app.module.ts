@@ -7,6 +7,7 @@ import { MealsComponent } from './meals/meals.component';
 import { FormsModule } from '@angular/forms';
 import { MealService } from './meal-service.service';
 import { ToastrService } from './toastr.service'
+import { CommonService } from './common.service'
 import { NavComponent } from './nav/nav.component';
 
 
@@ -21,7 +22,7 @@ import { NavComponent } from './nav/nav.component';
     BrowserModule,
     FormsModule,
   ],
-  providers: [MealService, ToastrService],
+  providers: [MealService, ToastrService, CommonService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
